@@ -5,7 +5,7 @@ Django settings for core project.
 from pathlib import Path
 from dotenv import load_dotenv
 import os
-load_dotenv
+load_dotenv()
 
 
 
@@ -27,7 +27,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'core'
+    'core',
     'corsheaders',
     'productos', 
 ]
@@ -63,23 +63,24 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'core.wsgi.application'
 
+
+
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("dbname"),
+        "NAME": os.getenv("database"),
         "USER": os.getenv("user"),
         "PASSWORD": os.getenv("password"),
         "HOST": os.getenv("host"),
-        "PORT": os.getenv("port"),
+        "PORT": os.getenv("port"),   
     }
 }
-
 
 #DATABASES = {
 #       'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': BASE_DIR / 'db.sqlite3',
 #    }
-#}
+
 
 AUTH_PASSWORD_VALIDATORS = [
     {

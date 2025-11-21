@@ -9,3 +9,6 @@ django-cors-headers
 requests
 psycopg2-binary
 python-dotenv
+gunicorn
+flask
+werkzeug

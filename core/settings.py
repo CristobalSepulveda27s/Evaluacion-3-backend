@@ -17,7 +17,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = [
     'onrender.com',
-    'https://evaluacion-3-backend.onrender.com',
+    'evaluacion-3-backend.onrender.com',
     '127.0.0.1'
 ]
 

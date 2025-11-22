@@ -15,7 +15,11 @@ SECRET_KEY = 'django-insecure-tu-clave-secreta-aqui'
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = [
+    'https://evaluacion-3-backend.onrender.com',
+    'onrender.com',
+    '127.0.0.1'
+]
 
 # core/settings.py
 INSTALLED_APPS = [

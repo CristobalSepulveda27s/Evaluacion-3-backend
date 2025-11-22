@@ -16,8 +16,8 @@ SECRET_KEY = 'django-insecure-tu-clave-secreta-aqui'
 DEBUG = True
 
 ALLOWED_HOSTS = [
-    'https://evaluacion-3-backend.onrender.com',
     'onrender.com',
+    'https://evaluacion-3-backend.onrender.com',
     '127.0.0.1'
 ]
 

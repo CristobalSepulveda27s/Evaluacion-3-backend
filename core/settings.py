@@ -22,6 +22,11 @@ ALLOWED_HOSTS = [
     'localhost',
 ]
 
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:8000",
+    "http://127.0.0.1:8000",
+]
+
 # core/settings.py
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -74,12 +79,6 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-
-
-#DATABASES = {
-#       'ENGINE': 'django.db.backends.sqlite3',
-#        'NAME': BASE_DIR / 'db.sqlite3',
-#    }
 
 
 AUTH_PASSWORD_VALIDATORS = [

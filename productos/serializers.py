@@ -6,8 +6,16 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = ['id', 'nombre', 'descripcion', 'precio', 'stock', 'creado', 'actualizado']
-        read_only_fields = ['id', 'creado', 'actualizado']
+        fields = [
+            'id', 
+            'nombre', 
+            'descripcion', 
+            'precio', 
+            'stock', 
+            'disponible', 
+            'fecha_creacion',
+        ]
+        read_only_fields = ['id', 'fecha_creacion']
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod

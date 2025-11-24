@@ -9,7 +9,7 @@ def registrar_usuario():
     last_name = input("Apellido (opcional): ") or ""
     
     try:
-        resp = requests.post("http://localhost:8000/api/auth/register/",
+        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/auth/register/",
                            json={
                                "username": username, 
                                "password": password, 
@@ -34,7 +34,7 @@ def iniciar_sesion():
     password = input("Contraseña: ")
     
     try:
-        resp = requests.post("http://localhost:8000/api/auth/login/",
+        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/auth/login/",
                            json={"username": username, "password": password})
         if resp.status_code == 200:
             data = resp.json()
@@ -76,7 +76,7 @@ def main():
         
         if opcion == "1":
             try:
-                resp = requests.get("http://localhost:8000/api/productos/", headers=headers)
+                resp = requests.get("https://evaluacion-3-backend.onrender.com/api/productos/", headers=headers)
                 if resp.status_code == 200:
                     productos = resp.json()
                     if productos:
@@ -97,7 +97,7 @@ def main():
             descripcion = input("Descripción (opcional): ") or ""
             
             try:
-                resp = requests.post("http://localhost:8000/api/productos/", 
+                resp = requests.post("https://evaluacion-3-backend.onrender.com/api/productos/", 
                                    json={
                                        "nombre": nombre, 
                                        "precio": precio, 
@@ -127,7 +127,7 @@ def main():
             if nueva_descripcion: data["descripcion"] = nueva_descripcion
             
             try:
-                resp = requests.patch(f"http://localhost:8000/api/productos/{id_producto}/", 
+                resp = requests.patch(f"https://evaluacion-3-backend.onrender.com/api/productos/{id_producto}/", 
                                     json=data,
                                     headers=headers)
                 if resp.status_code == 200:
@@ -141,7 +141,7 @@ def main():
             id_producto = input("ID del producto a eliminar: ")
             
             try:
-                resp = requests.delete(f"http://localhost:8000/api/productos/{id_producto}/", 
+                resp = requests.delete(f"https://evaluacion-3-backend.onrender.com/api/productos/{id_producto}/", 
                                      headers=headers)
                 if resp.status_code == 204:
                     print("✅ Producto eliminado exitosamente!")

@@ -13,3 +13,4 @@ DATABASES = {
     'onrender.com',
     'evaluacion-3-backend.onrender.com',
     '127.0.0.1'
+    http://localhost:8000/api/auth/register/

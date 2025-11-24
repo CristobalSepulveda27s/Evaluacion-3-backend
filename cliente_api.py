@@ -1,14 +1,41 @@
 import requests
 
+def registrar_usuario():
+    print("\n📝 REGISTRAR USUARIO")
+    username = input("Usuario: ")
+    password = input("Contraseña: ")
+    email = input("Email (opcional): ") or ""
+    first_name = input("Nombre (opcional): ") or ""
+    last_name = input("Apellido (opcional): ") or ""
+    
+    try:
+        resp = requests.post("http://localhost:8000/api/auth/register/",
+                           json={
+                               "username": username, 
+                               "password": password, 
+                               "password_confirm": password,
+                               "email": email,
+                               "first_name": first_name,
+                               "last_name": last_name
+                           })
+        if resp.status_code == 201:
+            data = resp.json()
+            print("✅ Usuario creado exitosamente!")
+            return data['access']
+        else:
+            print("❌ Error en el registro:", resp.status_code)
+            print("Detalles:", resp.text)
+    except Exception as e:
+        print("❌ Error de conexión:", e)
+
 def iniciar_sesion():
     print("\n🔐 INICIAR SESIÓN")
     username = input("Usuario: ")
     password = input("Contraseña: ")
     
     try:
-        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/token/",
+        resp = requests.post("http://localhost:8000/api/auth/login/",
                            json={"username": username, "password": password})
-        print(resp)
         if resp.status_code == 200:
             data = resp.json()
             print("✅ Login exitoso!")
@@ -25,10 +52,13 @@ def main():
     while not token:
         print("\n🚀 CLIENTE JWT")
         print("1. Iniciar sesión")
+        print("2. Registrar usuario")
         opcion = input("Opción: ")
         
         if opcion == "1":
             token = iniciar_sesion()
+        elif opcion == "2":
+            token = registrar_usuario()
         else:
             print("❌ Opción inválida")
     
@@ -46,7 +76,7 @@ def main():
         
         if opcion == "1":
             try:
-                resp = requests.get("https://evaluacion-3-backend.onrender.com/api/productos/", headers=headers)
+                resp = requests.get("http://localhost:8000/api/productos/", headers=headers)
                 if resp.status_code == 200:
                     productos = resp.json()
                     if productos:
@@ -67,7 +97,7 @@ def main():
             descripcion = input("Descripción (opcional): ") or ""
             
             try:
-                resp = requests.post("https://evaluacion-3-backend.onrender.com/api/productos/", 
+                resp = requests.post("http://localhost:8000/api/productos/", 
                                    json={
                                        "nombre": nombre, 
                                        "precio": precio, 
@@ -97,7 +127,7 @@ def main():
             if nueva_descripcion: data["descripcion"] = nueva_descripcion
             
             try:
-                resp = requests.patch(f"https://evaluacion-3-backend.onrender.com/api/productos/{id_producto}/", 
+                resp = requests.patch(f"http://localhost:8000/api/productos/{id_producto}/", 
                                     json=data,
                                     headers=headers)
                 if resp.status_code == 200:
@@ -111,7 +141,7 @@ def main():
             id_producto = input("ID del producto a eliminar: ")
             
             try:
-                resp = requests.delete(f"https://evaluacion-3-backend.onrender.com/api/productos/{id_producto}/", 
+                resp = requests.delete(f"http://localhost:8000/api/productos/{id_producto}/", 
                                      headers=headers)
                 if resp.status_code == 204:
                     print("✅ Producto eliminado exitosamente!")

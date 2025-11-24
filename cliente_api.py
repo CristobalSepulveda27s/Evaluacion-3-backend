@@ -1,41 +1,14 @@
 import requests
 
-def registrar_usuario():
-    print("\n📝 REGISTRAR USUARIO")
-    username = input("Usuario: ")
-    password = input("Contraseña: ")
-    email = input("Email (opcional): ") or ""
-    first_name = input("Nombre (opcional): ") or ""
-    last_name = input("Apellido (opcional): ") or ""
-    
-    try:
-        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/auth/register/",
-                           json={
-                               "username": username, 
-                               "password": password, 
-                               "password_confirm": password,
-                               "email": email,
-                               "first_name": first_name,
-                               "last_name": last_name
-                           })
-        if resp.status_code == 201:
-            data = resp.json()
-            print("✅ Usuario creado exitosamente!")
-            return data['access']
-        else:
-            print("❌ Error en el registro:", resp.status_code)
-            print("Detalles:", resp.text)
-    except Exception as e:
-        print("❌ Error de conexión:", e)
-
 def iniciar_sesion():
     print("\n🔐 INICIAR SESIÓN")
     username = input("Usuario: ")
     password = input("Contraseña: ")
     
     try:
-        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/auth/login/",
+        resp = requests.post("http://localhost:8000/api/token/",
                            json={"username": username, "password": password})
+        print(resp)
         if resp.status_code == 200:
             data = resp.json()
             print("✅ Login exitoso!")
@@ -52,13 +25,10 @@ def main():
     while not token:
         print("\n🚀 CLIENTE JWT")
         print("1. Iniciar sesión")
-        print("2. Registrar usuario")
         opcion = input("Opción: ")
         
         if opcion == "1":
             token = iniciar_sesion()
-        elif opcion == "2":
-            token = registrar_usuario()
         else:
             print("❌ Opción inválida")
     

@@ -31,7 +31,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'rest_framework_simplejwt',
-    'core',
     'corsheaders',
     'productos', 
 ]
@@ -72,7 +71,7 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": os.getenv("database"),
+        "NAME": os.getenv("dbname"),
         "USER": os.getenv("user"),
         "PASSWORD": os.getenv("password"),
         "HOST": os.getenv("host"),

@@ -1,24 +1,13 @@
 from rest_framework import serializers
 from .models import Producto
+from django.contrib.auth.models import User
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 class ProductoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Producto
-        fields = [
-            'url',
-            'id', 
-            'nombre', 
-            'descripcion', 
-            'precio', 
-            'stock', 
-            'disponible', 
-            'fecha_creacion'
-        ]
-        read_only_fields = ['id', 'fecha_creacion']
-
-from rest_framework import serializers
-from django.contrib.auth.models import User
-from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
+        fields = ['id', 'nombre', 'descripcion', 'precio', 'stock', 'creado', 'actualizado']
+        read_only_fields = ['id', 'creado', 'actualizado']
 
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     @classmethod
@@ -44,6 +33,11 @@ class RegisterSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username', 'email', 'password', 'password_confirm', 'first_name', 'last_name')
+        extra_kwargs = {
+            'email': {'required': False},  # Hacemos el email opcional
+            'first_name': {'required': False},
+            'last_name': {'required': False}
+        }
 
     def validate(self, attrs):
         if attrs['password'] != attrs['password_confirm']:
@@ -52,6 +46,9 @@ class RegisterSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         validated_data.pop('password_confirm')
+        # Si el email está vacío, lo convertimos a una cadena vacía
+        if 'email' not in validated_data or not validated_data['email']:
+            validated_data['email'] = ''
         user = User.objects.create_user(**validated_data)
         return user
 

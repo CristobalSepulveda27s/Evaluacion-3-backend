@@ -6,7 +6,7 @@ def iniciar_sesion():
     password = input("Contraseña: ")
     
     try:
-        resp = requests.post("http://localhost:8000/api/token/",
+        resp = requests.post("https://evaluacion-3-backend.onrender.com/api/token/",
                            json={"username": username, "password": password})
         print(resp)
         if resp.status_code == 200:

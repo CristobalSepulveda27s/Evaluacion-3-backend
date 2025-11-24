@@ -1,9 +1,4 @@
 import requests
-import json
-
-# ===============================
-# FUNCIONES DE AUTENTICACIÓN JWT
-# ===============================
 
 def obtener_token_registro(username, password, email="", first_name="", last_name=""):
     """
@@ -105,10 +100,6 @@ def refrescar_token(refresh_token):
     except Exception as e:
         print(f"❌ Error de conexión: {e}")
         return None
-
-# ===============================
-# FUNCIONES PARA PRODUCTOS (CON AUTORIZACIÓN)
-# ===============================
 
 def obtener_productos(token):
     """
